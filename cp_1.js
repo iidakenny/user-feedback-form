@@ -26,4 +26,17 @@ comment_input.addEventListener('input', () => {
 });
 
 
+const tooltip_fields = document.querySelectorAll('.tooltip_wrapper');
 
+tooltip_fields.forEach(wrapper => {
+    const tooltip = wrapper.querySelector('.tooltip')
+
+    wrapper.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+
+    wrapper.addEventListener('mouseleave',() => {
+        tooltip.style.display = 'none';
+    });
+
+});

@@ -13,13 +13,34 @@
     font-weight: bold;
 }
 
-.tooltip {
+.tooltip_wrapper {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted #555;
 }
 
-.tooltip:hover {
-    background-color: #f9f9f9;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+.tooltip {
+    position: absolute;
+    display: none;
+    background-color: midnightblue;
+    color: rgb(251, 168, 248);
+    border-radius: 8px;
+    z-index: 100;
+    padding: 6px 12px;
+    left: 105%;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+
+}
+
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: midnightblue;
 }
