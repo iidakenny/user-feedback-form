@@ -1,0 +1,25 @@
+#char_counter {
+    font-size: 0.85rem;
+    color: #555;
+
+}
+
+#char_counter.warning {
+    color: orange;
+}
+
+#char_counter.danger {
+    color: red;
+    font-weight: bold;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #555;
+}
+
+.tooltip:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
