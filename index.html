@@ -17,35 +17,40 @@
 <!-- User Feedback Form asking for full name, email, and comments -->
 
     <form id="user_feedback_form" action="">
+
         <div class="tooltip_wrapper">
             <label for="name">Full Name: </label>
-            <input type="text" id="name" placeholder="Samantha Smith" required>
+            <input type="text" id="name" placeholder="Samantha Smith">
             <span class="tooltip">Please enter your full name</span>
         </div>
-
+        <span class="validation_msg" id="name_validation"></span>
         <br>
 
         <div class="tooltip_wrapper">
             <label for="email">Email: </label>
-            <input type="email" id="email" placeholder="hello@example.com" required>
+            <input type="email" id="email" placeholder="hello@example.com">
             <span class="tooltip">Please enter your email, we won't spam you </span>
         </div>
-
+        <span class="validation_msg" id="email_validation"></span>
         <br>
 
         <div class="tooltip_wrapper">
             <label for="comment">Comments: </label>
-            <textarea type="text" id="comment" autocomplete="off" placeholder="Your thoughts go here" maxlength="500" required></textarea>
+            <textarea type="text" id="comment" autocomplete="off" placeholder="Your thoughts go here" maxlength="500"></textarea>
             <p id="char_counter"> 0 / 500 characters</p>
             <span class="tooltip">Max 500 characters</span>
         </div>
-
+        <span class="validation_msg" id="comment_validation"></span>
         <br>
 
         <button id="submit" type="submit">Submit</button>
+        <p class="success_msg" id="success_msg">Thank you for your feedback </p>
+        <div id="feedback_display"></div>
+
     </form>
     
 
     <script src="cp_1.js"></script>
+
 </body>
 </html>
