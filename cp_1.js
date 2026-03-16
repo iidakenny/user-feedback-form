@@ -20,41 +20,51 @@ document.querySelectorAll('.tooltip').forEach(t => {
 function launchFireworks() {
     const btn = document.getElementById('submit');
     const rect = btn.getBoundingClientRect();
-    const colors = ['#ffffff', '#96fff0', '#b8f0ff', '#e0f8ff', '#ffcef3', '#d4aaff', '#fffde0'];
+    const colors = ['#ffffff', '#96fff0', '#b8f0ff', '#e0f8ff', '#ffcef3', '#d4aaff', '#fffde0', '#ff6eb4'];
+    const types = ['', 'long', 'tiny'];
 
-    for (let i = 0; i < 60; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('sparkle-particle');
+    function spawnWave(count, distanceMin, distanceMax, sizeMin, sizeMax, delayOffset) {
+        for (let i = 0; i < count; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('sparkle-particle');
 
-        // Spread origin across the full width of the button
-        const originX = rect.left + Math.random() * rect.width;
-        const originY = rect.top + Math.random() * rect.height;
+            // randomly assign a shape type
+            const type = types[Math.floor(Math.random() * types.length)];
+            if (type) particle.classList.add(type);
 
-        const angle = Math.random() * 360;
-        const distance = 80 + Math.random() * 160;
-        const tx = Math.cos((angle * Math.PI) / 180) * distance;
-        const ty = Math.sin((angle * Math.PI) / 180) * distance;
+            const originX = rect.left + Math.random() * rect.width;
+            const originY = rect.top + Math.random() * rect.height;
+            const angle = Math.random() * 360;
+            const distance = distanceMin + Math.random() * distanceMax;
+            const tx = Math.cos((angle * Math.PI) / 180) * distance;
+            const ty = Math.sin((angle * Math.PI) / 180) * distance;
 
-        particle.style.left = `${originX}px`;
-        particle.style.top = `${originY}px`;
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.setProperty('--tx', `${tx}px`);
-        particle.style.setProperty('--ty', `${ty}px`);
+            particle.style.left = `${originX}px`;
+            particle.style.top = `${originY}px`;
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.setProperty('--tx', `${tx}px`);
+            particle.style.setProperty('--ty', `${ty}px`);
 
-        // Random sizes for depth effect
-        const size = `${5 + Math.random() * 10}px`;
-        
+            const size = `${sizeMin + Math.random() * sizeMax}px`;
+            particle.style.width = size;
+            particle.style.height = size;
+            particle.style.animationDelay = `${delayOffset + Math.random() * 0.2}s`;
+            particle.style.animationDuration = `${0.9 + Math.random() * 0.6}s`;
 
-        particle.style.width = size;
-        particle.style.height = size;
-        particle.style.filter = `drop-shadow(0 0 ${2 + Math.random() * 4}px white)`;
-        particle.style.animationDelay = `${Math.random() * 0.2}s`;
-        particle.style.animationDuration = `${0.8 + Math.random() * 0.6}s`;
-
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 1500);
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 2000);
+        }
     }
-};
+
+    // Wave 1 — big dramatic burst
+    spawnWave(60, 80, 180, 6, 10, 0);
+
+    // Wave 2 — medium follow-up
+    setTimeout(() => spawnWave(40, 50, 120, 4, 7, 0.1), 250);
+
+    // Wave 3 — tiny glitter dust settles
+    setTimeout(() => spawnWave(50, 20, 80, 2, 5, 0.05), 500);
+}
 
 setTimeout(() => {
     for (let i = 0; i < 40; i++) {
