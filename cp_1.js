@@ -119,3 +119,29 @@ tooltip_fields.forEach(wrapper => {
     });
 
 });
+
+
+form_input.addEventListener('input', (event) => {
+
+    if (event.target.id === 'name') {
+        name_validation.style.display = 'none';
+    }
+    if (event.target.id === 'email') {
+        email_validation.style.display = 'none';
+    }
+    if (event.target.id === 'comment') {
+        comment_validation.style.display = 'none';
+    }
+});
+
+// Stop clicks inside the form from bubbling up to the body
+form_input.addEventListener('click', () => {
+    _event.stopPropagation();
+});
+
+// If the user clicks the background, nothing form related happens.
+document.body.addEventListener('click', () => {
+    name_validation.style.display('none');
+    email_validation.style.display('none');
+    comment_validation.style.display('none');
+});
