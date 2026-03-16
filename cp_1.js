@@ -17,39 +17,41 @@ document.querySelectorAll('.tooltip').forEach(t => {
     t.style.display = 'none';
 });
 
-function launch_fireworks() {
+function launchFireworks() {
     const btn = document.getElementById('submit');
     const rect = btn.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    const colors = ['#ff6eb4', '#7effc5', '#96fff0', '#c44dff', '#ffffff', '#ffe97f', '#ffb347'];
 
-    const colors = ['#ff6eb4', '#7effc5', '#96fff0', '#c44dff', '#ffffff', '#ffe97f'];
-
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 60; i++) {
         const particle = document.createElement('div');
         particle.classList.add('sparkle-particle');
 
-        // Random angle and distance for each particle
-        const angle = (i / 30) * 360 + Math.random() * 12;
-        const distance = 60 + Math.random() * 120;
+        // Spread origin across the full width of the button
+        const originX = rect.left + Math.random() * rect.width;
+        const originY = rect.top + Math.random() * rect.height;
+
+        const angle = Math.random() * 360;
+        const distance = 80 + Math.random() * 160;
         const tx = Math.cos((angle * Math.PI) / 180) * distance;
         const ty = Math.sin((angle * Math.PI) / 180) * distance;
 
-        particle.style.left = `${centerX}px`;
-        particle.style.top = `${centerY}px`;
+        particle.style.left = `${originX}px`;
+        particle.style.top = `${originY}px`;
         particle.style.background = colors[Math.floor(Math.random() * colors.length)];
         particle.style.setProperty('--tx', `${tx}px`);
         particle.style.setProperty('--ty', `${ty}px`);
-        particle.style.width = `${4 + Math.random() * 6}px`;
-        particle.style.height = particle.style.width;
-        particle.style.animationDelay = `${Math.random() * 0.15}s`;
+
+        // Random sizes for depth effect
+        const size = `${5 + Math.random() * 10}px`;
+        particle.style.width = size;
+        particle.style.height = size;
+        particle.style.animationDelay = `${Math.random() * 0.2}s`;
+        particle.style.animationDuration = `${0.8 + Math.random() * 0.6}s`;
 
         document.body.appendChild(particle);
-
-        // Remove particle from DOM after animation finishes
-        setTimeout(() => particle.remove(), 1000);
+        setTimeout(() => particle.remove(), 1500);
     }
-}
+};
 
 document.querySelector('#user_feedback_form').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -83,7 +85,7 @@ document.querySelector('#user_feedback_form').addEventListener('submit', (event)
     }
 
     if (is_valid) {
-        launch_fireworks();
+        launchFireworks();
         const feedback_display = document.getElementById('feedback_display');
         const success_msg = document.getElementById('success_msg');
 
