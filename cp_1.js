@@ -56,6 +56,35 @@ function launchFireworks() {
     }
 };
 
+setTimeout(() => {
+    for (let i = 0; i < 40; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('sparkle-particle');
+
+        const originX = rect.left + Math.random() * rect.width;
+        const originY = rect.top + Math.random() * rect.height;
+        const angle = Math.random() * 360;
+        const distance = 40 + Math.random() * 100;
+        const tx = Math.cos((angle * Math.PI) / 180) * distance;
+        const ty = Math.sin((angle * Math.PI) / 180) * distance;
+
+        particle.style.left = `${originX}px`;
+        particle.style.top = `${originY}px`;
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+        const size = `${3 + Math.random() * 6}px`;
+        particle.style.width = size;
+        particle.style.height = size;
+        particle.style.filter = `drop-shadow(0 0 ${3 + Math.random() * 5}px white)`;
+        particle.style.animationDelay = `${Math.random() * 0.3}s`;
+        particle.style.animationDuration = `${0.6 + Math.random() * 0.5}s`;
+
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1500);
+    }
+}, 300);
+
 document.querySelector('#user_feedback_form').addEventListener('submit', (event) => {
     event.preventDefault();
     let is_valid = true;
