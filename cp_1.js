@@ -20,7 +20,7 @@ document.querySelectorAll('.tooltip').forEach(t => {
 function launchFireworks() {
     const btn = document.getElementById('submit');
     const rect = btn.getBoundingClientRect();
-    const colors = ['#ff6eb4', '#7effc5', '#96fff0', '#c44dff', '#ffffff', '#ffe97f', '#ffb347'];
+    const colors = ['#ffffff', '#96fff0', '#b8f0ff', '#e0f8ff', '#ffcef3', '#d4aaff', '#fffde0'];
 
     for (let i = 0; i < 60; i++) {
         const particle = document.createElement('div');
@@ -43,8 +43,11 @@ function launchFireworks() {
 
         // Random sizes for depth effect
         const size = `${5 + Math.random() * 10}px`;
+        
+
         particle.style.width = size;
         particle.style.height = size;
+        particle.style.filter = `drop-shadow(0 0 ${2 + Math.random() * 4}px white)`;
         particle.style.animationDelay = `${Math.random() * 0.2}s`;
         particle.style.animationDuration = `${0.8 + Math.random() * 0.6}s`;
 
