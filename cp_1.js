@@ -179,6 +179,13 @@ form_input.addEventListener('input', (event) => {
     if (event.target.id === 'comment') {
         comment_validation.style.display = 'none';
     }
+
+// Hide tooltip when user starts typing
+    const wrapper = event.target.closest('.tooltip_wrapper');
+    if (wrapper) {
+        const tooltip = wrapper.querySelector('.tooltip');
+        if (tooltip) tooltip.style.display = 'none';
+    }
 });
 
 // Stop clicks inside the form from bubbling up to the body
