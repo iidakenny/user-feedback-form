@@ -4,6 +4,7 @@ const form_input = document.getElementById('user_feedback_form');
 const name_input = document.getElementById('name');
 const email_input = document.getElementById('email');
 const comment_input = document.getElementById('comment');
+const email_buttons = document.querySelectorAll('.email_btn');
 
 // Grabbing all form validations.
 
@@ -29,6 +30,11 @@ document.querySelector('#user_feedback_form').addEventListener('submit', (event)
     if (email_input.value.trim() === '') {
         email_validation.textContent = '⚠️ Please enter your email'
         email_validation.style.display = 'block'
+        is_valid = false;
+    }
+    else if (!email_input.value.includes('@') || !email_input.value.includes('.')) {
+        email_validation.textContent = '⚠️ Please enter a valid email address';
+        email_validation.style.display = 'block';
         is_valid = false;
     }
 
@@ -135,13 +141,35 @@ form_input.addEventListener('input', (event) => {
 });
 
 // Stop clicks inside the form from bubbling up to the body
-form_input.addEventListener('click', () => {
-    _event.stopPropagation();
+form_input.addEventListener('click', (e) => {
+    e.stopPropagation();
 });
 
 // If the user clicks the background, nothing form related happens.
 document.body.addEventListener('click', () => {
-    name_validation.style.display('none');
-    email_validation.style.display('none');
-    comment_validation.style.display('none');
+    name_validation.style.display = 'none';
+    email_validation.style.display = 'none';
+    comment_validation.style.display = 'none';
 });
+
+// added 3 email guick buttons for easier email input.
+email_buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const domain = btn.textContent;
+
+        if (email_input.value.trim() === '') {
+
+            email_input.value = domain;
+            email_input.focus();
+            email_input.setSelectionRange(0,0);
+
+        } 
+        else {
+
+            const base = email_input.value.split('@')[0];
+            email_input.value = base + domain;
+            email_input.focus();
+        }
+    });
+});
+
