@@ -12,6 +12,44 @@ const name_validation = document.getElementById('name_validation');
 const email_validation = document.getElementById('email_validation');
 const comment_validation = document.getElementById('comment_validation');
 
+// Resets all tooltips on page load
+document.querySelectorAll('.tooltip').forEach(t => {
+    t.style.display = 'none';
+});
+
+function launch_fireworks() {
+    const btn = document.getElementById('submit');
+    const rect = btn.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const colors = ['#ff6eb4', '#7effc5', '#96fff0', '#c44dff', '#ffffff', '#ffe97f'];
+
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('sparkle-particle');
+
+        // Random angle and distance for each particle
+        const angle = (i / 30) * 360 + Math.random() * 12;
+        const distance = 60 + Math.random() * 120;
+        const tx = Math.cos((angle * Math.PI) / 180) * distance;
+        const ty = Math.sin((angle * Math.PI) / 180) * distance;
+
+        particle.style.left = `${centerX}px`;
+        particle.style.top = `${centerY}px`;
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+        particle.style.width = `${4 + Math.random() * 6}px`;
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = `${Math.random() * 0.15}s`;
+
+        document.body.appendChild(particle);
+
+        // Remove particle from DOM after animation finishes
+        setTimeout(() => particle.remove(), 1000);
+    }
+}
 
 document.querySelector('#user_feedback_form').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -45,6 +83,7 @@ document.querySelector('#user_feedback_form').addEventListener('submit', (event)
     }
 
     if (is_valid) {
+        launch_fireworks();
         const feedback_display = document.getElementById('feedback_display');
         const success_msg = document.getElementById('success_msg');
 
@@ -173,3 +212,4 @@ email_buttons.forEach(btn => {
     });
 });
 
+document.querySelectorAll('.tooltip').forEach(t => console.log(t.style.display));
